@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
+
+// Views
+import DashboardLayout from "./views/layouts/DashboardLayout.vue";
 import Home from "./views/Home.vue";
 
 Vue.use(Router);
@@ -10,8 +13,14 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      component: DashboardLayout,
+      children: [
+        {
+          path: "",
+          name: "Dashboard",
+          component: Home
+        }
+      ]
     }
   ]
 });
