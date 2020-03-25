@@ -7,7 +7,11 @@
         accusamus vel, soluta molestias blanditiis explicabo eos ullam
         temporibus quo excepturi quasi dicta ipsam? Sit quod sunt aliquid
         recusandae repellat?
+
+        <sb-button>Hello</sb-button>
       </sb-card>
+      <br />
+      <sb-input label="E-mail"></sb-input>
       <router-view></router-view>
     </section>
   </div>
