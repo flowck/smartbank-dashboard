@@ -15,13 +15,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import SBCard from "../../components/sb-card.vue";
 
-@Component({
-  components: {
-    "sb-card": SBCard
-  }
-})
+@Component
 export default class DashboardLayout extends Vue {}
 </script>
 
