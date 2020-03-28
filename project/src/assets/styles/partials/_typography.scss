@@ -1,6 +1,21 @@
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: url("/assets/fonts/OpenSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: url("/assets/fonts/OpenSans-Bold.ttf");
+}
+
+@font-face {
+  font-family: "OpenSans-Light";
+  src: url("/assets/fonts/OpenSans-Light.ttf");
+}
+
 body {
   color: $sb-text-color--dark;
-  font-family: 'Helvetica', 'Ubuntu', 'Arial';
+  font-family: $sb-font--regular;
 }
 
 a {
