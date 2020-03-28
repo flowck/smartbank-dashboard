@@ -5,6 +5,7 @@ import store from "./store";
 import "./components/globals";
 // Main styles
 import "./assets/styles/main.scss";
+import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 
 Vue.config.productionTip = false;
 
