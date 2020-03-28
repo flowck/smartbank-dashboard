@@ -1,7 +1,17 @@
 <template>
   <div class="sb-input">
-    <label class="sb-input__label">{{ label }}</label>
-    <input class="sb-input__field" :type="type" :placeholder="placeholder" />
+    <label v-if="hasLabel" class="sb-input__label">{{ label }}</label>
+    <input
+      ref="inputField"
+      class="sb-input__field"
+      :type="type"
+      :placeholder="placeholder"
+      @input="$emit('input', $refs.inputField.value)"
+      @keyup.enter="$emit('enter', $refs.inputField.value)"
+    />
+    <div class="sb-input__icon">
+      <slot name="icon"></slot>
+    </div>
   </div>
 </template>
 
@@ -17,10 +27,12 @@ enum Type {
 @Component
 export default class SBInput extends Vue {
   // Props
-  @Prop({ default: "Label" }) label: string;
-  @Prop({ default: false }) isFullWidth: boolean;
-  @Prop({ default: "" }) placeholder: string;
-  @Prop({ default: "text" }) type: Type;
+  @Prop({ default: "Label" }) label!: string;
+  @Prop({ default: false }) isFullWidth!: boolean;
+  @Prop({ default: "" }) placeholder!: string;
+  @Prop({ default: "text" }) type!: Type;
+  @Prop({ default: true }) hasLabel!: boolean;
+  @Prop() value!: string;
 
   // State properties
   private classes: any = {
@@ -33,6 +45,7 @@ export default class SBInput extends Vue {
 <style lang="scss">
 .sb-input {
   display: flex;
+  position: relative;
   padding: 10px 20px;
   border-radius: 10px;
   flex-direction: column;
@@ -49,9 +62,34 @@ export default class SBInput extends Vue {
   .sb-input__field {
     border: none;
     outline: none;
-    // font-weight: bold;
     font-size: 16px;
+    padding-right: 20px;
     color: $sb-text-color--dark;
+
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: $sb-text-color--light;
+    }
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      color: $sb-text-color--light;
+    }
+    &:-ms-input-placeholder {
+      /* IE 10+ */
+      color: $sb-text-color--light;
+    }
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      color: $sb-text-color--light;
+    }
+  }
+
+  .sb-input__icon {
+    top: 50%;
+    right: 20px;
+    position: absolute;
+    transform: translateY(-50%);
+    color: $sb-text-color--light;
   }
 
   &.sb-input--full-width {
