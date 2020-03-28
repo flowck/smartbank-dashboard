@@ -57,6 +57,25 @@
       <sb-input label="E-mail"></sb-input>
       <br />
       <sb-search></sb-search>
+      <br />
+      <sb-message
+        userName="Firmino"
+        userAvatar="http://changani.me/site/me.png"
+        message="Hello world, I am testing the message component Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam facilis,
+        accusamus vel, soluta molestias blanditiis explicabo eos ullam
+        temporibus quo excepturi quasi dicta ipsam? Sit quod sunt aliquid
+        recusandae repellat?"
+      ></sb-message>
+      <br />
+      <sb-message
+        :isSender="true"
+        userName="Obama Barack"
+        userAvatar="https://www.biography.com/.image/t_share/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg"
+        message="Hello world, I am testing the message component Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam facilis,
+        accusamus vel, soluta molestias blanditiis explicabo eos ullam
+        temporibus quo excepturi quasi dicta ipsam? Sit quod sunt aliquid
+        recusandae repellat?"
+      ></sb-message>
       <router-view></router-view>
     </section>
   </div>
@@ -64,6 +83,28 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+// @ts-ignore
+import { Server } from "miragejs";
+
+// Mock data
+// @ts-nocheck
+new Server({
+  routes() {
+    this.namespace = "/api";
+
+    this.get("/messages", () => {
+      return [
+        {
+          id: Math.random(),
+          message: "Hi everyone, I am testing Miragejs",
+          userName: "Firmino Changani",
+          userAvatar: "http://changani.me/site/me.png",
+          createdAt: new Date()
+        }
+      ];
+    });
+  }
+});
 
 @Component
 export default class DashboardLayout extends Vue {}
