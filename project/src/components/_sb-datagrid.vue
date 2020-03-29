@@ -1,6 +1,6 @@
 <template>
   <div class="sb-datagrid">
-    <sb-card>
+    <sb-card class="sb-datagrid__card">
       <table>
         <thead class="sb-datagrid__head">
           <th
@@ -41,8 +41,15 @@ export default class SBDatagrid extends Vue {
 
 <style lang="scss">
 .sb-datagrid {
+  padding: 0 2px 2px 0;
+  overflow-x: auto;
   $col-margin: 10px;
   $col-padding: 20px;
+
+  .sb-datagrid__card {
+    width: 100%;
+    min-width: 500px;
+  }
 
   table {
     width: 100%;
@@ -74,5 +81,8 @@ export default class SBDatagrid extends Vue {
       padding: 20px 0 20px 10px;
     }
   }
+}
+
+@media screen and (max-width: 500px) {
 }
 </style>
