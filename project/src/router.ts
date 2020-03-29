@@ -1,9 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-// Views
+// Layout components
 import DashboardLayout from "./views/layouts/DashboardLayout.vue";
+import AuthLayout from "./views/layouts/AuthLayout.vue";
+
+// View components
 import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import ForgotPassword from "./views/ForgotPassword.vue";
 
 Vue.use(Router);
 
@@ -19,6 +24,23 @@ export default new Router({
           path: "",
           name: "Dashboard",
           component: Home
+        }
+      ]
+    },
+    {
+      path: "/auth",
+      component: AuthLayout,
+      redirect: "/auth/login",
+      children: [
+        {
+          path: "login",
+          name: "Login",
+          component: Login
+        },
+        {
+          path: "forgot",
+          name: "ForgotPassword",
+          component: ForgotPassword
         }
       ]
     }
