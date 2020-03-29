@@ -23,3 +23,18 @@ html, body {
 body {
   background-color: $sb-background-color;
 }
+
+// Flex classes
+.sb-flex {
+  display: flex;
+
+  .sb-flex--center-y {
+    align-items: center;
+  }
+}
+
+// Forms
+.sb-field {
+  margin-bottom: 15px;
+}
+
