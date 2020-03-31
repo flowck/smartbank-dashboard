@@ -13,6 +13,11 @@
   src: url("/assets/fonts/OpenSans-Light.ttf");
 }
 
+@font-face {
+  font-family: "OpenSans-SemiBold";
+  src: url("/assets/fonts/OpenSans-SemiBold.ttf");
+}
+
 body {
   color: $sb-text-color--dark;
   font-family: $sb-font--regular;
