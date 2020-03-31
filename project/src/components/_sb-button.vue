@@ -1,14 +1,14 @@
 <template>
   <button @click="onClick" :class="classes">
     <img v-if="isLoading" src="/assets/img/spinner.svg" alt="Loading" />
-    <span :class="{ 'is-hidden': isLoading }">
+    <span :class="{ 'is-loading': isLoading }">
       <slot></slot>
     </span>
   </button>
 </template>
 
 <script lang="ts">
-import { Prop, Vue, Component } from "vue-property-decorator";
+import { Prop, Vue, Component, Watch } from "vue-property-decorator";
 
 @Component
 export default class SBButton extends Vue {
@@ -19,12 +19,20 @@ export default class SBButton extends Vue {
   // State properties
   private classes: any = {
     "sb-button": true,
+    "sb-button--is-loading": false,
     "sb-button--full-width": this.isFullWidth
   };
 
   // Emit on click event
   private onClick(event: Event) {
     return this.$emit("click", event);
+  }
+
+  @Watch("isLoading")
+  private onChangePropIsLoading() {
+    this.classes["sb-button--is-loading"] = !this.classes[
+      "sb-button--is-loading"
+    ];
   }
 }
 </script>
@@ -39,18 +47,27 @@ export default class SBButton extends Vue {
   padding: 15px 56px;
   border-radius: 15px;
   color: $sb-color-white;
+  transition: background-color 0.5s;
   background-color: $sb-color-blue;
+
+  &.sb-button--is-loading {
+    background-color: $sb-color-dark;
+  }
 
   &:active,
   &:focus {
     outline: none;
   }
 
+  &:hover {
+    background-color: $sb-color-dark;
+  }
+
   &.sb-button--full-width {
     width: 100%;
   }
 
-  .is-hidden {
+  .is-loading {
     visibility: hidden;
   }
 
