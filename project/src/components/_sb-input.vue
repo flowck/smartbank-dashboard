@@ -4,11 +4,23 @@
     <input
       ref="inputField"
       class="sb-input__field"
-      :type="type"
+      :type="fieldType"
       :placeholder="placeholder"
       @input="$emit('input', $refs.inputField.value)"
       @keyup.enter="$emit('enter', $refs.inputField.value)"
     />
+    <div
+      @click="togglePasswordButton"
+      v-if="type === 'password'"
+      class="sb-input__icon sb-input__password"
+    >
+      <i
+        title="Hide password"
+        v-if="isPasswordVisible"
+        class="far fa-eye-slash"
+      ></i>
+      <i title="Show password" v-else class="far fa-eye"></i>
+    </div>
     <div class="sb-input__icon">
       <slot name="icon"></slot>
     </div>
@@ -18,27 +30,41 @@
 <script lang="ts">
 import { Prop, Vue, Component } from "vue-property-decorator";
 
-enum Type {
-  text,
-  password,
-  number
-}
-
 @Component
 export default class SBInput extends Vue {
   // Props
   @Prop({ default: "Label" }) label!: string;
   @Prop({ default: false }) isFullWidth!: boolean;
   @Prop({ default: "" }) placeholder!: string;
-  @Prop({ default: "text" }) type!: Type;
+  @Prop({ default: "text" }) type!: string;
   @Prop({ default: true }) hasLabel!: boolean;
+  @Prop({ default: false }) showPassword!: boolean;
   @Prop() value!: string;
 
   // State properties
+  private fieldType: string = "";
+  private isPasswordVisible: boolean = false;
   private classes: any = {
     "sb-input": true,
     "sb-input--full-width": this.isFullWidth
   };
+
+  // Methods
+  private togglePasswordButton() {
+    if (this.isPasswordVisible) {
+      this.isPasswordVisible = false;
+      this.fieldType = this.type;
+    } else {
+      this.isPasswordVisible = true;
+      this.fieldType = "text";
+    }
+  }
+
+  // Lifecylce methods
+  private mounted() {
+    this.isPasswordVisible = this.showPassword;
+    this.fieldType = this.type;
+  }
 }
 </script>
 
@@ -62,8 +88,9 @@ export default class SBInput extends Vue {
   .sb-input__field {
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 14px;
     padding-right: 20px;
+    font-family: $sb-font--semi;
     color: $sb-text-color--dark;
 
     &::-webkit-input-placeholder {
