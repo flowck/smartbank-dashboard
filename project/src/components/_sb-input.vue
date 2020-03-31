@@ -5,6 +5,7 @@
       ref="inputField"
       class="sb-input__field"
       :type="fieldType"
+      :name="name"
       :placeholder="placeholder"
       @input="$emit('input', $refs.inputField.value)"
       @keyup.enter="$emit('enter', $refs.inputField.value)"
@@ -33,6 +34,7 @@ import { Prop, Vue, Component } from "vue-property-decorator";
 @Component
 export default class SBInput extends Vue {
   // Props
+  @Prop() name!: string;
   @Prop({ default: "Label" }) label!: string;
   @Prop({ default: false }) isFullWidth!: boolean;
   @Prop({ default: "" }) placeholder!: string;
