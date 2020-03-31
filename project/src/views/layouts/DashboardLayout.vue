@@ -40,7 +40,7 @@
         </ul>
       </nav>
 
-      <div class="sb-navbar__logout">
+      <div class="sb-navbar__logout" @click="logout">
         <i class="fas fa-sign-out-alt"></i>
       </div>
     </aside>
@@ -87,28 +87,6 @@
 <script lang="ts">
 import { Column } from "../../interfaces/index";
 import { Component, Vue } from "vue-property-decorator";
-// @ts-ignore
-import { Server } from "miragejs";
-
-// Mock data
-// @ts-nocheck
-new Server({
-  routes() {
-    this.namespace = "/api";
-
-    this.get("/messages", () => {
-      return [
-        {
-          id: Math.random(),
-          message: "Hi everyone, I am testing Miragejs",
-          userName: "Firmino Changani",
-          userAvatar: "http://changani.me/site/me.png",
-          createdAt: new Date()
-        }
-      ];
-    });
-  }
-});
 
 @Component
 export default class DashboardLayout extends Vue {
@@ -173,6 +151,13 @@ export default class DashboardLayout extends Vue {
       currency: "USD"
     }
   ];
+
+  /**
+   * On user logout
+   */
+  private logout() {
+    this.$router.push({ name: "Login" });
+  }
 }
 </script>
 
@@ -203,7 +188,13 @@ $views-width: calc(100% - #{$navbar-width});
   }
 
   .sb-navbar__logout {
+    cursor: pointer;
     padding-bottom: 30px;
+    transition: color 0.5s;
+
+    &:hover {
+      color: $sb-color-blue;
+    }
   }
 
   .sb-navbar__nav {
