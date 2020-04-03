@@ -9,6 +9,7 @@ import AuthLayout from "./views/layouts/AuthLayout.vue";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import ForgotPassword from "./views/ForgotPassword.vue";
+import Chat from "./views/Chat.vue";
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
           path: "",
           name: "Dashboard",
           component: Home
+        },
+        {
+          path: "chat",
+          name: "Chat",
+          component: Chat
         }
       ]
     },
