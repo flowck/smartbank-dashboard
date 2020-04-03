@@ -32,13 +32,18 @@ export default class SBMessage extends Vue {
   display: flex;
   $user-size: 50px;
   justify-content: space-between;
-  $content-width: calc(100% - #{$user-size + 10px});
   $container-border-radius: 20px;
+  $content-width: calc(100% - #{$user-size + 10px});
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 
   .sb-message__content {
-    padding: 20px;
+    padding: 10px 20px;
     line-height: 1.5;
     width: $content-width;
+    font-size: 14px;
     border-radius: $container-border-radius;
     border-bottom-left-radius: 0;
     background-color: $sb-color-white;
