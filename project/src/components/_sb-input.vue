@@ -94,23 +94,7 @@ export default class SBInput extends Vue {
     padding-right: 20px;
     font-family: $sb-font--semi;
     color: $sb-text-color--dark;
-
-    &::-webkit-input-placeholder {
-      /* Chrome/Opera/Safari */
-      color: $sb-text-color--light;
-    }
-    &::-moz-placeholder {
-      /* Firefox 19+ */
-      color: $sb-text-color--light;
-    }
-    &:-ms-input-placeholder {
-      /* IE 10+ */
-      color: $sb-text-color--light;
-    }
-    &:-moz-placeholder {
-      /* Firefox 18- */
-      color: $sb-text-color--light;
-    }
+    @include placeholder-color;
   }
 
   .sb-input__icon {
