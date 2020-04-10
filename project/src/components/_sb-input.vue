@@ -35,7 +35,7 @@ import { Prop, Vue, Component } from "vue-property-decorator";
 export default class SBInput extends Vue {
   // Props
   @Prop() name!: string;
-  @Prop({ default: "Label" }) label!: string;
+  @Prop() label!: string;
   @Prop({ default: false }) isFullWidth!: boolean;
   @Prop({ default: "" }) placeholder!: string;
   @Prop({ default: "text" }) type!: string;
