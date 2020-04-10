@@ -1,4 +1,4 @@
-<template>
+le<template>
   <div class="sb-chat">
     <div class="sb-chat__area">
       <sb-card class="sb-chat__area__contact sb-flex">
@@ -55,9 +55,20 @@
 
 <script lang="ts">
 import { Vue, Prop, Component } from "vue-property-decorator";
+import { mapActions } from "vuex";
 
-@Component
-export default class SBChat extends Vue {}
+@Component({
+  methods: {
+    ...mapActions("chatModule", ["getEmojis"])
+  }
+})
+export default class SBChat extends Vue {
+  private getEmojis!: Function;
+
+  private mounted() {
+    this.getEmojis();
+  }
+}
 </script>
 
 <style lang="scss">
@@ -75,7 +86,7 @@ export default class SBChat extends Vue {}
 
   .sb-chat__area__messages {
     padding: 20px 0;
-    height: calc(100% - (62px + 80px));
+    height: calc(100% - (62px + 70px));
   }
 
   .sb-chat-input {
@@ -83,7 +94,7 @@ export default class SBChat extends Vue {}
   }
 
   .sb-chat__area__contact {
-    height: 80px;
+    height: 70px;
     align-items: center;
     justify-content: space-between;
 
