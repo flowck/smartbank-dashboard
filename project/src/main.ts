@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./store/store";
 
 import { required, email } from "vee-validate/dist/rules";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
