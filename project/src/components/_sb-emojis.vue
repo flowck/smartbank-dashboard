@@ -3,6 +3,7 @@
     <sb-card>
       <sb-input
         class="sb-emojis__search"
+        name="search"
         placeholder="Search emojis"
         v-model="searchParam"
       />
@@ -22,7 +23,6 @@
 </template>
 
 <script lang="ts">
-import { mapState } from "vuex";
 import { Vue, Prop, Component } from "vue-property-decorator";
 
 interface Emoji {
