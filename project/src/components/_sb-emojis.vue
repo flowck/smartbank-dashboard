@@ -1,14 +1,18 @@
 <template>
   <div class="sb-emojis">
     <sb-card>
-      <sb-input placeholder="Search emojis" v-model="searchParam" />
+      <sb-input
+        class="sb-emojis__search"
+        placeholder="Search emojis"
+        v-model="searchParam"
+      />
       <div class="sb-emojis__list">
         <div
-          @click="selectEmoji"
           class="sb-emojis__list__emoji"
           v-for="(emoji, index) in emojisList"
           :key="index"
           :title="emoji.name.replace(/_/g, ' ')"
+          @click="selectEmoji(emoji.emoji)"
         >
           {{ emoji.emoji }}
         </div>
@@ -33,7 +37,7 @@ interface Emoji {
 
 @Component({
   data() {
-    return { searchParam: "" }
+    return { searchParam: "" };
   }
 })
 export default class SBEmojis extends Vue {
@@ -41,18 +45,25 @@ export default class SBEmojis extends Vue {
   @Prop({ required: true }) emojis!: Emoji[];
 
   // State properties
-  private searchParam!: string; 
+  private searchParam!: string;
 
   // Methods
+  private selectEmoji(emoji: string) {
+    this.$emit("select", emoji);
+  }
+
+  // Computed properties
 
   /**
    * searchEmojis
    * @returns {string}
-  */
+   */
   get emojisList() {
     if (this.searchParam) {
       return this.emojis.filter((emoji: Emoji) => {
-        return emoji.name.toLowerCase().search(this.searchParam.toLowerCase()) > -1;
+        return (
+          emoji.name.toLowerCase().search(this.searchParam.toLowerCase()) > -1
+        );
       });
     } else {
       // Return the default list
@@ -65,14 +76,14 @@ export default class SBEmojis extends Vue {
 <style lang="scss">
 .sb-emojis {
   right: 0;
-  top: -300px;
-  width: 400px;
+  top: -205px;
+  width: 100%;
   position: absolute;
 }
 
 .sb-emojis__list {
   width: 100%;
-  height: 200px;
+  height: 100px;
   overflow-y: auto;
   margin-top: 20px;
 }
@@ -91,5 +102,9 @@ export default class SBEmojis extends Vue {
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
+}
+
+.sb-emojis__search {
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 </style>

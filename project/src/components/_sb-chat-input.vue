@@ -5,10 +5,15 @@
       <input type="file" class="sb-chat-input__upload" />
     </div>
 
-    <textarea class="sb-chat-input__field">Type a message...</textarea>
+    <textarea class="sb-chat-input__field" v-model="content">
+      Type a message...
+    </textarea>
 
     <div class="sb-chat-input__actions actions">
-      <div class="actions__emojis-button" @click="toggleEmojis">
+      <div
+        :class="{ 'actions__emojis-button': true, 'is-active': emojisStatus }"
+        @click="toggleEmojis"
+      >
         <i class="far fa-smile-beam"></i>
       </div>
       <div class="actions__send-button">
@@ -16,7 +21,12 @@
       </div>
     </div>
     <!-- Emojis -->
-    <sb-emojis :emojis="emojis" v-if="emojisStatus" class="sb-emojis" />
+    <sb-emojis
+      @select="onSelectEmoji"
+      :emojis="emojis"
+      v-if="emojisStatus"
+      class="sb-emojis"
+    />
   </sb-card>
 </template>
 
@@ -25,13 +35,19 @@ import { mapState } from "vuex";
 import { Vue, Prop, Component } from "vue-property-decorator";
 
 @Component({
+  data() {
+    return {
+      content: ""
+    };
+  },
   computed: {
     ...mapState("chatModule", ["emojis"])
   }
 })
 export default class SBChatInput extends Vue {
   private emojis!: object[];
-  private emojisStatus: boolean = true;
+  private emojisStatus: boolean = false;
+  private content!: string;
 
   // Methods
 
@@ -41,6 +57,10 @@ export default class SBChatInput extends Vue {
    */
   private toggleEmojis(): void {
     this.emojisStatus = !this.emojisStatus;
+  }
+
+  private onSelectEmoji(emoji: string) {
+    this.content += emoji;
   }
 }
 </script>
@@ -106,6 +126,10 @@ export default class SBChatInput extends Vue {
     cursor: pointer;
 
     &:hover {
+      color: $sb-color-blue;
+    }
+
+    &.is-active {
       color: $sb-color-blue;
     }
   }
