@@ -30,11 +30,10 @@
 
 <script lang="ts">
 import { Prop, Vue, Component } from "vue-property-decorator";
-
 @Component
 export default class SBInput extends Vue {
   // Props
-  @Prop() name!: string;
+  @Prop({ required: true }) name!: string;
   @Prop() label!: string;
   @Prop({ default: false }) isFullWidth!: boolean;
   @Prop({ default: "" }) placeholder!: string;
