@@ -6,6 +6,7 @@
         name="search"
         placeholder="Search emojis"
         v-model="searchParam"
+        :autofocus="true"
       />
       <div class="sb-emojis__list">
         <div

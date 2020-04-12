@@ -9,6 +9,7 @@
       :placeholder="placeholder"
       @input="$emit('input', $refs.inputField.value)"
       @keyup.enter="$emit('enter', $refs.inputField.value)"
+      autofocus="autofocus"
     />
     <div
       @click="togglePasswordButton"
@@ -40,6 +41,7 @@ export default class SBInput extends Vue {
   @Prop({ default: "text" }) type!: string;
   @Prop({ default: true }) hasLabel!: boolean;
   @Prop({ default: false }) showPassword!: boolean;
+  @Prop({ default: false }) autofocus!: boolean;
   @Prop() value!: string;
 
   // State properties
