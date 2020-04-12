@@ -1,21 +1,23 @@
 le<template>
-  <div class="sb-chat">
-    <div class="sb-chat__area">
-      <sb-card class="sb-chat__area__contact sb-flex">
-        <div>
-          <div class="sb-chat__area__contact__name">
-            <b>Firmino</b>
+  <div ref="view" class="sb-chat">
+    <div ref="chatArea" class="sb-chat__area">
+      <div ref="chatContact">
+        <sb-card class="sb-chat__area__contact sb-flex">
+          <div>
+            <div class="sb-chat__area__contact__name">
+              <b>Firmino</b>
+            </div>
+            <div class="sb-chat__area__contact__status">Online</div>
           </div>
-          <div class="sb-chat__area__contact__status">Online</div>
-        </div>
-        <div class="sb-chat__area__contact__actions actions">
-          <div class="action"><i class="fas fa-phone"></i></div>
-          <div class="action"><i class="fas fa-search"></i></div>
-          <div>|</div>
-          <div class="action"><i class="fas fa-ellipsis-v"></i></div>
-        </div>
-      </sb-card>
-      <div class="sb-chat__area__messages">
+          <div class="sb-chat__area__contact__actions actions">
+            <div class="action"><i class="fas fa-phone"></i></div>
+            <div class="action"><i class="fas fa-search"></i></div>
+            <div>|</div>
+            <div class="action"><i class="fas fa-ellipsis-v"></i></div>
+          </div>
+        </sb-card>
+      </div>
+      <div ref="chatMessagesContainer" class="sb-chat__area__messages">
         <sb-message
           message="Hi there, I am testing the chat message"
           userName="Firmino"
@@ -43,10 +45,20 @@ le<template>
           message="Are you done testing"
           userName="Changani"
           userAvatar="http://changani.me/site/me.png"
+        />
+
+        <sb-message
+          v-for="message in messages"
+          :key="message.id"
+          :message="message.content"
+          :userName="message.userName"
+          :userAvatar="message.userAvatar"
         />
       </div>
 
-      <sb-chat-input class="sb-chat-input"></sb-chat-input>
+      <div ref="chatInput">
+        <sb-chat-input @sendMessage="sendMessage" class="sb-chat-input" />
+      </div>
     </div>
     <!--  -->
     <sb-card class="sb-chat__person"></sb-card>
@@ -56,17 +68,68 @@ le<template>
 <script lang="ts">
 import { Vue, Prop, Component } from "vue-property-decorator";
 import { mapActions } from "vuex";
+import { Message } from "../interfaces";
 
 @Component({
+  data() {
+    return {
+      messages: []
+    };
+  },
   methods: {
     ...mapActions("chatModule", ["getEmojis"])
   }
 })
 export default class SBChat extends Vue {
   private getEmojis!: Function;
+  private messages!: Message[];
 
+  // Methods
+  private updateScrollPosition() {
+    const chatMessages = this.$refs.chatMessagesContainer as HTMLElement;
+    chatMessages.scrollTop += chatMessages.scrollHeight;
+  }
+
+  private sendMessage(content: string) {
+    this.messages.push({
+      id: Number(new Date().getTime()),
+      content,
+      userName: "Firmino",
+      userAvatar: "http://changani.me/site/me.png"
+    });
+
+    const scrollUpdater = window.setTimeout(() => {
+      this.updateScrollPosition();
+      window.clearTimeout(scrollUpdater);
+    }, 100);
+  }
+
+  private setChatContainerHeight() {
+    const chatMessages = this.$refs.chatMessagesContainer as HTMLElement;
+    const chatContact = this.$refs.chatContact as HTMLElement;
+    const chatInput = this.$refs.chatInput as HTMLElement;
+    const view = this.$refs.view as HTMLElement;
+
+    const chatMessageMargin = 40;
+    const chatMessagesHeight =
+      view.offsetHeight -
+      (chatInput.offsetHeight + chatContact.offsetHeight + chatMessageMargin);
+
+    chatMessages.setAttribute("style", `height: ${chatMessagesHeight}px;`);
+  }
+
+  // Lifecycle methods
   private mounted() {
     this.getEmojis();
+    this.setChatContainerHeight();
+
+    window.addEventListener("resize", () => {
+      console.log("is resizing");
+      const timeout = window.setTimeout(() => {
+        this.setChatContainerHeight();
+        window.clearTimeout(timeout);
+      }, 100);
+    });
   }
 }
 </script>
@@ -85,8 +148,10 @@ export default class SBChat extends Vue {
   flex-direction: column;
 
   .sb-chat__area__messages {
-    padding: 20px 0;
-    height: calc(100% - (62px + 70px));
+    padding-right: 20px;
+    margin: 20px 0;
+    overflow: scroll;
+    overflow-x: auto;
   }
 
   .sb-chat-input {
