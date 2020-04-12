@@ -5,7 +5,11 @@
       <input type="file" class="sb-chat-input__upload" />
     </div>
 
-    <textarea class="sb-chat-input__field" v-model="content">
+    <textarea
+      @keyup.enter="onSendMessage"
+      class="sb-chat-input__field"
+      v-model="content"
+    >
       Type a message...
     </textarea>
 
@@ -16,7 +20,7 @@
       >
         <i class="far fa-smile-beam"></i>
       </div>
-      <div class="actions__send-button">
+      <div class="actions__send-button" @click="onSendMessage">
         <i class="fas fa-paper-plane"></i>
       </div>
     </div>
@@ -61,6 +65,11 @@ export default class SBChatInput extends Vue {
 
   private onSelectEmoji(emoji: string) {
     this.content += emoji;
+  }
+
+  private onSendMessage() {
+    this.$emit("sendMessage", this.content);
+    this.content = "";
   }
 }
 </script>
