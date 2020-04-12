@@ -1,31 +1,42 @@
-# project
+# Smartbank Dashboard
 
-## Project setup
-```
-yarn install
-```
+This repository contains the implementation of Smartbank Dashboard UIs designed by [Almira Albegova](https://www.behance.net/jarda11192af). This project used Vuejs, Vuex and Typescript.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Setup locally
 
-### Compiles and minifies for production
 ```
-yarn run build
+git clone git@github.com:flowck/smartbank-dashboard.git smartbank
+
+cd smartbank/project
+
+npm install
+
 ```
 
-### Run your tests
+### Run the project
+
 ```
-yarn run test
+npm start
 ```
 
-### Lints and fixes files
+Open the browser and navigate to `http://localhost:8080`.
+
+### Run unit tests
+
 ```
-yarn run lint
+npm run test:unit
 ```
 
-### Run your unit tests
+### Run unit end to end tests
+
 ```
-yarn run test:unit
+npm run test:e2e
 ```
+
+## Acknowledgement
+
+* [Almira Albegova](https://www.behance.net/jarda11192af) - Digital Designer
+
+## License
+
+This project is under the MIT License, expect for the UIs that fully credited to Almira Albegova.
