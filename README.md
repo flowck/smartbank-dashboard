@@ -27,7 +27,7 @@ Open the browser and navigate to `http://localhost:8080`.
 npm run test:unit
 ```
 
-### Run unit end to end tests
+### Run integration (e2e) tests
 
 ```
 npm run test:e2e
