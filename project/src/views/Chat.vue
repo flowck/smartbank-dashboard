@@ -124,7 +124,6 @@ export default class SBChat extends Vue {
     this.setChatContainerHeight();
 
     window.addEventListener("resize", () => {
-      console.log("is resizing");
       const timeout = window.setTimeout(() => {
         this.setChatContainerHeight();
         window.clearTimeout(timeout);
