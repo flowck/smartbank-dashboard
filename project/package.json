@@ -15,7 +15,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "core-js": "^2.6.5",
-    "minimist": "^0.2.1",
+    "minimist": "^1.2.3",
     "miragejs": "^0.1.37",
     "vee-validate": "^3.2.5",
     "vue": "^2.6.10",
