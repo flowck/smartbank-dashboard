@@ -68,8 +68,10 @@ export default class SBChatInput extends Vue {
   }
 
   private onSendMessage() {
-    this.$emit("sendMessage", this.content);
-    this.content = "";
+    if (this.content) {
+      this.$emit("sendMessage", this.content);
+      this.content = "";
+    }
   }
 }
 </script>
